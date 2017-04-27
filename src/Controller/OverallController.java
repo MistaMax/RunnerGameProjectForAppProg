@@ -25,6 +25,10 @@ public class OverallController {
 		this.leaderBoardController = new LeaderboardButtonController(model, view);
 	}
 
+	public LeaderboardButtonController getLeaderBoardController() {
+		return leaderBoardController;
+	}
+
 	public LevelUpdateController getLevelController() {
 		return levelController;
 	}

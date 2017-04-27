@@ -27,7 +27,7 @@ public class GameModel {
 		this.platModel = new PlatformModel();
 		this.randModel = new RandomModel();
 		this.soundModel = new SoundModel();
-		this.scoreBoard = new ScoreBoard("high_scores");
+		this.scoreBoard = new ScoreBoard("high_scores.txt");
 		this.paused = false;
 	}
 

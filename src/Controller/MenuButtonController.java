@@ -29,9 +29,9 @@ public class MenuButtonController implements ActionListener {
 
 			model.changeState(1);
 			view.displayPanel(model.getState());
-		} else if (command == "Options") {
-			model.changeMenuState(1);
-			view.displayPanel(model.getState());
+		} else if (command == "Leaderboard") {
+			view.showLeaderboard();
+			//view.displayPanel(model.getState());
 		} else if (command == "Help") {
 			JOptionPane.showMessageDialog(view, "The objective of the game is to survive as long as you can\n"
 					+ "\nPress \"space\" to jump \nPress \"down key\" to accelerate down");

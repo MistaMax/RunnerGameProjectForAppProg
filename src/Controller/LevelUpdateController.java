@@ -95,7 +95,9 @@ public class LevelUpdateController {
 			}
 		}
 		// loops this back to the beginning
-		view.displayPanel(model.getState());
+		if (model.getState() == 1) {
+			view.displayPanel(model.getState());
+		}
 	}
 
 	public void reset() {

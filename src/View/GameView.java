@@ -1,10 +1,7 @@
 package View;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import Controller.*;
@@ -19,6 +16,11 @@ import Model.*;
  */
 public class GameView extends JFrame {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * The class Panel2 is used as a panel for generating the levels as well as
 	 * doing all the drawing
 	 * 
@@ -27,6 +29,11 @@ public class GameView extends JFrame {
 	 */
 
 	private class Panel2 extends JPanel {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		@Override
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
@@ -86,9 +93,8 @@ public class GameView extends JFrame {
 	private GameModel model;
 	private OverallController controller;
 	private Panel2 panel2;
-	private JPanel mainMenuPanel, menuButtons, optionMenuPanel, optionButtons, panel3, gameOverButtons, panel4,
+	private JPanel mainMenuPanel, menuButtons, optionMenuPanel, panel3, gameOverButtons,
 			leaderBoardHolder, leaderBoard;
-	private Font font;
 
 	/**
 	 * Constructor for the GameView class
@@ -135,9 +141,9 @@ public class GameView extends JFrame {
 		startButton.setBackground(Color.WHITE);
 		menuButtons.add(startButton);
 
-		JButton optionsButton = new JButton("Options");
-		optionsButton.setBackground(Color.WHITE);
-		menuButtons.add(optionsButton);
+		JButton lbButton = new JButton("Leaderboard");
+		lbButton.setBackground(Color.WHITE);
+		menuButtons.add(lbButton);
 
 		JButton helpButton = new JButton("Help");
 		helpButton.setBackground(Color.WHITE);
@@ -157,17 +163,6 @@ public class GameView extends JFrame {
 		pane1.add(menuButtons);
 		pane1.add(tester);
 		mainMenuPanel.add(pane1);
-		// ------------------------------------------------------------------------//
-		// ----------------------- Option Menu Panel
-		// Stuff-------------------------//
-
-		optionMenuPanel = new JPanel(new BorderLayout());
-		optionMenuPanel.setBackground(Color.WHITE);
-		optionButtons = new JPanel(new GridLayout());
-		JButton back = new JButton("Back");
-		back.setBackground(Color.WHITE);
-		optionButtons.add(back);
-		optionMenuPanel.add(optionButtons);
 		// ------------------------------------------------------------------------//
 		// ---------------------------- Game Over
 		// Screen---------------------------//
@@ -207,7 +202,7 @@ public class GameView extends JFrame {
 		leaderBoardHolder = new JPanel();
 		leaderBoardHolder.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-		JPanel lbFillPanel = new JPanel();
+		//JPanel lbFillPanel = new JPanel();
 
 		add(mainMenuPanel, BorderLayout.CENTER);
 	}
@@ -233,12 +228,6 @@ public class GameView extends JFrame {
 			}
 		}
 
-		for (Component component : optionButtons.getComponents()) {
-			if (component instanceof AbstractButton) {
-				AbstractButton button = (AbstractButton) component;
-				button.addActionListener(controller.getMenuButtonController());
-			}
-		}
 
 		for (Component component : gameOverButtons.getComponents()) {
 			if (component instanceof AbstractButton) {
@@ -256,7 +245,6 @@ public class GameView extends JFrame {
 	 */
 	public void displayPanel(int whichPanel) {
 		remove(mainMenuPanel);
-		remove(optionMenuPanel);
 		remove(panel2);
 		remove(panel3);
 		/*
@@ -301,9 +289,9 @@ public class GameView extends JFrame {
 
 	public void showLeaderboard() {
 		remove(mainMenuPanel);
-		remove(optionMenuPanel);
 		remove(panel2);
 		remove(panel3);
+		
 		for (Component component : leaderBoardHolder.getComponents()) {
 			leaderBoardHolder.remove(component);
 		}

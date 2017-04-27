@@ -12,7 +12,7 @@ public class CharacterModel {
 		this.y = yStart;
 		this.hieght = 50;
 		this.width = 20;
-		this.grav = 0.2;
+		this.grav = 0.15;
 		this.jumpPow = 7.3;
 		this.currYVel = 0;
 		this.touchingGround = false;
@@ -81,7 +81,7 @@ public class CharacterModel {
 	}
 
 	public double getGrav() {
-		return grav = .15;
+		return grav;
 	}
 
 	public double getJumpPow() {

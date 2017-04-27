@@ -1,6 +1,5 @@
 package Controller;
 
-import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
@@ -32,12 +31,13 @@ public class GameOverController implements ActionListener {
 		view.displayPanel(model.getState());
 		
 		// Popup must happen after Panel is switched, glitches if before
-		/*if(!scoreBoard.isFull() || scoreBoard.getLowestScore() < score.getScore()){
+		if(!scoreBoard.isFull() || scoreBoard.getLowestScore() < score.getScore()){
 			String name = JOptionPane.showInputDialog(view, "Enter your name", Integer.toString(scoreBoard.getscores().size()));
 			score.setName(name);
-			scoreBoard.addScore(score);
-		}*/
-		
+			scoreBoard.addScore(score.getScore(),score.getName());
+			overallController.getLeaderBoardController().writeScore(model.getScoreBoard().getScoreFile());
+		}
+		view.displayPanel(model.getState());
 		// Update display again in order to prevent glitch
 
 	}
