@@ -94,7 +94,9 @@ public class GameView extends JFrame {
 	private OverallController controller;
 	private Panel2 panel2;
 	private JPanel mainMenuPanel, menuButtons, optionMenuPanel, panel3, gameOverButtons,
-			leaderBoardHolder, leaderBoard;
+			leaderBoardHolder;
+	private JTable leaderBoard;
+	private JButton lbBack;
 
 	/**
 	 * Constructor for the GameView class
@@ -104,6 +106,7 @@ public class GameView extends JFrame {
 	public GameView(GameModel model) {
 		super("Jumper");
 		this.model = model;
+		lbBack = new JButton("Back");
 		paintMainMenu();
 		setIconImage(Toolkit.getDefaultToolkit().getImage("j.png"));
 	}
@@ -198,9 +201,14 @@ public class GameView extends JFrame {
 		gameOverButtons.add(menu);
 		fillPanel.add(gameOverButtons);
 		panel3.add(fillPanel, BorderLayout.CENTER);
+		
+		
+		BorderLayout lbBl = new BorderLayout();
+		lbBl.setHgap(100);
+		leaderBoardHolder = new JPanel(lbBl);
+		leaderBoardHolder.setBackground(Color.WHITE);
+		leaderBoardHolder.setBorder(null);
 
-		leaderBoardHolder = new JPanel();
-		leaderBoardHolder.setBorder(new EmptyBorder(20, 20, 20, 20));
 
 		//JPanel lbFillPanel = new JPanel();
 
@@ -235,6 +243,8 @@ public class GameView extends JFrame {
 				button.addActionListener(controller.getGameOverController());
 			}
 		}
+		
+		lbBack.addActionListener(controller.getLeaderBoardController());
 
 	}
 
@@ -247,6 +257,7 @@ public class GameView extends JFrame {
 		remove(mainMenuPanel);
 		remove(panel2);
 		remove(panel3);
+		remove(leaderBoardHolder);
 		/*
 		 * remove(panel2); remove(panel3); remove(panel4); //
 		 */
@@ -271,6 +282,7 @@ public class GameView extends JFrame {
 			break;
 
 		case 3:
+			panel2.invalidate();
 			add(panel3, BorderLayout.CENTER);
 			break;
 		}
@@ -295,13 +307,26 @@ public class GameView extends JFrame {
 		for (Component component : leaderBoardHolder.getComponents()) {
 			leaderBoardHolder.remove(component);
 		}
-		leaderBoard = new JPanel(new GridLayout(10, 2, 0, 0));
+		leaderBoard = new JTable(11, 2);
+		int i = 1;
+		leaderBoard.setValueAt("Name", 0, 0);
+		leaderBoard.setValueAt("Score", 0, 1);
 		for (Score score : model.getScoreBoard().getscores()) {
-			leaderBoard.add(new JLabel(score.getName()));
-			leaderBoard.add(new JLabel(Integer.toString(score.getScore())));
+			leaderBoard.setValueAt(score.getScore(), i, 1);
+			leaderBoard.setValueAt(score.getName(), i, 0);
+			i++;
 		}
-		leaderBoardHolder.add(leaderBoard);
-		this.add(leaderBoardHolder);
+		leaderBoard.setRowSelectionAllowed(false);
+		leaderBoard.setColumnSelectionAllowed(false);
+		leaderBoardHolder.add(leaderBoard, BorderLayout.CENTER);
+		this.add(leaderBoardHolder, BorderLayout.CENTER);
+		JLabel lbTitle = new JLabel("Leaderboard");
+		lbTitle.setBorder(new EmptyBorder(0, 140, 100, 0));
+		lbTitle.setFont(new Font("SansSerif", Font.BOLD + Font.ITALIC, 90));
+		lbTitle.setOpaque(true);
+		lbTitle.setBackground(Color.white);
+		leaderBoardHolder.add(lbTitle, BorderLayout.NORTH);
+		leaderBoardHolder.add(lbBack, BorderLayout.SOUTH);
 		validate();
 		repaint();
 	}

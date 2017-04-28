@@ -59,7 +59,8 @@ public class LeaderboardButtonController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand().toLowerCase();
-		if (cmd == "back") {
+		if (cmd.equals("back")) {
+			model.setLeaderboardState(0);
 			view.displayPanel(model.getState());
 		}
 	}
